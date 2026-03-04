@@ -19,10 +19,14 @@
 ### 資料匯入
 - 支援 Excel (.xlsx) 與 ODS (.ods) 檔案上傳參與者名單
 - 已知問題：Excel 格式目前無法正常匯入，ODS 格式可正常使用
-- 注意：正式名單需另外上傳，不包含在程式碼中
+- GitHub Pages 版本使用空的預設名單，必須透過上傳功能匯入參與者
+- `testData.js` 已加入 `.gitignore`，不會上傳至 GitHub
 
 ### 檔案變更
 - `src/App.css` - 修改 `.app-header` 樣式為垂直排列
+- `src/App.jsx` - 改用 `defaultData.js`
+- `src/data/defaultData.js` - 新增預設資料（空參與者名單）
+- `src/hooks/useSoundEffects.js` - 加入音效解鎖機制
 
 ---
 
