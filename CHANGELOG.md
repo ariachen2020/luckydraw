@@ -1,5 +1,26 @@
 # Change Log
 
+## 2026-03-04
+
+### UI 調整
+- 將頁首標題與統計資訊改為垂直堆疊排列
+  - `.app-header` 加入 `flex-direction: column`
+  - 標題「春酒抽獎」在上，統計資訊在下，置中對齊
+  - 調整 `gap` 為 `0.5rem` 讓間距更緊湊
+
+### 部署
+- 上傳專案至 GitHub 並設定 GitHub Pages
+- 已知問題：GitHub Pages 上音效無法播放（尚未解決）
+
+### 資料匯入
+- 支援 Excel (.xlsx) 與 ODS (.ods) 檔案上傳參與者名單
+- 已知問題：Excel 格式目前無法正常匯入，ODS 格式可正常使用
+
+### 檔案變更
+- `src/App.css` - 修改 `.app-header` 樣式為垂直排列
+
+---
+
 ## 2026-02-27
 
 ### UI 調整

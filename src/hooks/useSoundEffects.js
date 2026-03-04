@@ -111,21 +111,49 @@ export function useSoundEffects() {
     }, 400);
   }, [getAudioContext]);
 
-  // 設定自訂音效檔案
+  // 設定自訂音效檔案（加入預載入）
   const setCustomDrumSound = useCallback((url) => {
-    drumAudioRef.current = new Audio(url);
-    drumAudioRef.current.volume = 0.7;
+    const audio = new Audio(url);
+    audio.volume = 0.7;
+    audio.preload = 'auto';
+    // 預載入音效
+    audio.load();
+    drumAudioRef.current = audio;
   }, []);
 
   const setCustomWinSound = useCallback((url) => {
-    winAudioRef.current = new Audio(url);
-    winAudioRef.current.volume = 0.7;
+    const audio = new Audio(url);
+    audio.volume = 0.7;
+    audio.preload = 'auto';
+    // 預載入音效
+    audio.load();
+    winAudioRef.current = audio;
   }, []);
+
+  // 解鎖音效（需要在用戶互動後呼叫）
+  const unlockAudio = useCallback(() => {
+    // 嘗試播放並立即暫停來解鎖瀏覽器的自動播放限制
+    if (drumAudioRef.current) {
+      drumAudioRef.current.play().then(() => {
+        drumAudioRef.current.pause();
+        drumAudioRef.current.currentTime = 0;
+      }).catch(() => {});
+    }
+    if (winAudioRef.current) {
+      winAudioRef.current.play().then(() => {
+        winAudioRef.current.pause();
+        winAudioRef.current.currentTime = 0;
+      }).catch(() => {});
+    }
+    // 也初始化 AudioContext
+    getAudioContext();
+  }, [getAudioContext]);
 
   return {
     playDrumRoll,
     playWinSound,
     setCustomDrumSound,
     setCustomWinSound,
+    unlockAudio,
   };
 }

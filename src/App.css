@@ -31,14 +31,15 @@ body {
 
 .app-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.15);
   border-radius: 16px;
   margin-bottom: 1rem;
   border: 2px solid rgba(255, 215, 0, 0.6);
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .app-title {
@@ -48,13 +49,6 @@ body {
                0 0 30px rgba(255, 215, 0, 0.3);
   letter-spacing: 0.5rem;
   white-space: nowrap;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
 }
 
 .app-stats {

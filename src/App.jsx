@@ -33,7 +33,9 @@ function App() {
   const [participants, setParticipants] = useState(defaultParticipants);
 
   // 音效
-  const { playDrumRoll, playWinSound, setCustomDrumSound, setCustomWinSound } = useSoundEffects();
+  const { playDrumRoll, playWinSound, setCustomDrumSound, setCustomWinSound, unlockAudio } = useSoundEffects();
+  // 音效是否已解鎖
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
 
   // 設定自訂音效（使用 import.meta.env.BASE_URL 取得正確路徑）
   useEffect(() => {
@@ -41,6 +43,27 @@ function App() {
     setCustomDrumSound(`${base}u_xg7ssi08yr-drum-roll-379670.mp3`);
     setCustomWinSound(`${base}freesound_community-tada-fanfare-a-6313.mp3`);
   }, [setCustomDrumSound, setCustomWinSound]);
+
+  // 處理用戶互動以解鎖音效（瀏覽器自動播放政策）
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      if (!audioUnlocked) {
+        unlockAudio();
+        setAudioUnlocked(true);
+      }
+    };
+
+    // 監聽各種用戶互動事件
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+    document.addEventListener('touchstart', handleUserInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+    };
+  }, [audioUnlocked, unlockAudio]);
 
   // 取得所有已得獎的人員 ID
   const getWonParticipantIds = useCallback(() => {
@@ -171,17 +194,11 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1 className="app-title">春酒抽獎</h1>
-        <div className="header-right">
-          <DataUploader
-            onDataLoaded={handleDataLoaded}
-            currentParticipantCount={participants.length}
-          />
-          <div className="app-stats">
-            <span className="round-badge">第 {currentRound} 輪</span>
-            <span>參與人數：{participants.length} 人</span>
-            <span>已抽出：{totalWinners} 人</span>
-            <span>剩餘：{remainingParticipants} 人</span>
-          </div>
+        <div className="app-stats">
+          <span className="round-badge">第 {currentRound} 輪</span>
+          <span>參與人數：{participants.length} 人</span>
+          <span>已抽出：{totalWinners} 人</span>
+          <span>剩餘：{remainingParticipants} 人</span>
         </div>
       </header>
 
@@ -225,6 +242,12 @@ function App() {
               </>
             )}
           </div>
+
+          {/* 上傳名單（小按鈕放底部） */}
+          <DataUploader
+            onDataLoaded={handleDataLoaded}
+            currentParticipantCount={participants.length}
+          />
         </aside>
       </main>
 
