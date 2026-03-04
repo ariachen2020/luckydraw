@@ -1,0 +1,56 @@
+.data-uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.upload-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.participant-count {
+  font-size: 13px;
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.upload-error {
+  color: #ff6b6b;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.upload-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}

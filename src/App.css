@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  background-image: url('/Gold and Red Oriental Traditional Happy Chinese New Year of Horse Instagram Post.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: white;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  gap: 1rem;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  color: #ffd700;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
+               0 0 30px rgba(255, 215, 0, 0.3);
+  letter-spacing: 0.5rem;
+  white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.app-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.app-stats span {
+  background: rgba(255, 215, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.round-badge {
+  background: linear-gradient(145deg, #ffd700, #ffaa00) !important;
+  color: #8b0000 !important;
+  font-weight: bold;
+}
+
+/* 主要內容區 - 左右分割 */
+.app-main {
+  flex: 1;
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  min-height: 0;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* 左側抽獎區（放大） */
+.draw-section {
+  flex: 1;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  min-height: 500px;
+}
+
+.draw-hint {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.draw-hint p {
+  background: rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  animation: hint-pulse 2s infinite;
+}
+
+/* 右側邊欄 */
+.sidebar {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+}
+
+/* 自訂捲軸樣式 */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.4);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.6);
+}
+
+/* 功能按鈕區 */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.action-btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid;
+}
+
+.export-btn {
+  background: linear-gradient(145deg, #4a90d9, #357abd);
+  border-color: #5fa8f5;
+  color: white;
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 144, 217, 0.4);
+}
+
+.bonus-btn {
+  background: linear-gradient(145deg, #ffd700, #ffaa00);
+  border-color: #ffcc00;
+  color: #8b0000;
+}
+
+.bonus-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes hint-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 響應式設計 - 小螢幕改為上下排列 */
+@media (max-width: 1024px) {
+  .app-main {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 400px;
+  }
+
+  .draw-section {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.2rem;
+  }
+
+  .app-stats {
+    gap: 0.5rem;
+  }
+
+  .app-stats span {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .app {
+    padding: 1.5rem 3rem;
+  }
+
+  .app-title {
+    font-size: 3rem;
+  }
+
+  .sidebar {
+    width: 450px;
+  }
+}
+
+/* 超寬螢幕 - 全屏體驗 */
+@media (min-width: 1800px) {
+  .app {
+    max-width: 1800px;
+  }
+
+  .draw-section {
+    max-width: 1000px;
+  }
+
+  .sidebar {
+    width: 500px;
+  }
+}
