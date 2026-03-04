@@ -35,10 +35,11 @@ function App() {
   // 音效
   const { playDrumRoll, playWinSound, setCustomDrumSound, setCustomWinSound } = useSoundEffects();
 
-  // 設定自訂音效
+  // 設定自訂音效（使用 import.meta.env.BASE_URL 取得正確路徑）
   useEffect(() => {
-    setCustomDrumSound('/u_xg7ssi08yr-drum-roll-379670.mp3');
-    setCustomWinSound('/freesound_community-tada-fanfare-a-6313.mp3');
+    const base = import.meta.env.BASE_URL;
+    setCustomDrumSound(`${base}u_xg7ssi08yr-drum-roll-379670.mp3`);
+    setCustomWinSound(`${base}freesound_community-tada-fanfare-a-6313.mp3`);
   }, [setCustomDrumSound, setCustomWinSound]);
 
   // 取得所有已得獎的人員 ID

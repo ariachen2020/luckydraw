@@ -77,33 +77,41 @@ async function parseODS(file) {
 
 // 解析 Excel 檔案（.xlsx）
 async function parseExcel(file) {
-  const XLSX = (await import('xlsx')).default;
-  const arrayBuffer = await file.arrayBuffer();
-  const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-  const sheetName = workbook.SheetNames[0];
-  const sheet = workbook.Sheets[sheetName];
-  const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+  try {
+    const xlsxModule = await import('xlsx');
+    // xlsx 模組可能用 default export 或直接 export
+    const XLSX = xlsxModule.default || xlsxModule;
 
-  const participants = [];
-  for (let i = 1; i < data.length; i++) {
-    const row = data[i];
-    if (!row || row.length < 2) continue;
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-    const department = String(row[0] || '').trim();
-    const employeeId = String(row[1] || '').trim();
-    const name = String(row[2] || '').trim() || '(未填姓名)';
+    const participants = [];
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      if (!row || row.length < 2) continue;
 
-    if (department && employeeId) {
-      participants.push({
-        id: i,
-        employeeId,
-        name,
-        department,
-      });
+      const department = String(row[0] || '').trim();
+      const employeeId = String(row[1] || '').trim();
+      const name = String(row[2] || '').trim() || '(未填姓名)';
+
+      if (department && employeeId) {
+        participants.push({
+          id: i,
+          employeeId,
+          name,
+          department,
+        });
+      }
     }
-  }
 
-  return participants;
+    return participants;
+  } catch (err) {
+    console.error('Excel 解析錯誤:', err);
+    throw new Error('Excel 檔案解析失敗: ' + err.message);
+  }
 }
 
 export function DataUploader({ onDataLoaded, currentParticipantCount }) {
