@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { prizes as initialPrizes, participants as defaultParticipants } from './data/testData';
+import { prizes as initialPrizes, participants as defaultParticipants } from './data/defaultData';
 import { useKeyboardTrigger } from './hooks/useKeyboardTrigger';
 import { useSoundEffects } from './hooks/useSoundEffects';
 import { PrizeSelector } from './components/PrizeSelector';
