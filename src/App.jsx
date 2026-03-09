@@ -19,8 +19,8 @@ function App() {
   const [currentWinners, setCurrentWinners] = useState([]);
   // 卡片是否正在翻轉
   const [isFlipping, setIsFlipping] = useState(false);
-  // 抽獎模式：'single' 一張一張抽, 'all' 一次全抽
-  const [drawMode, setDrawMode] = useState('single');
+  // 抽獎人數（預設 1 人）
+  const [drawCount, setDrawCount] = useState(1);
   // 當前輪次
   const [currentRound, setCurrentRound] = useState(1);
   // 獎項列表（可重置）
@@ -109,14 +109,14 @@ function App() {
     const available = getAvailableParticipants();
     if (available.length === 0) return;
 
-    // 決定要抽幾個人
+    // 決定要抽幾個人（取 drawCount、剩餘名額、可抽人數的最小值）
     const remainingSlots = getRemainingSlots();
-    const drawCount = drawMode === 'all' ? Math.min(remainingSlots, available.length) : 1;
+    const actualDrawCount = Math.min(drawCount, remainingSlots, available.length);
 
     // 隨機選擇得獎者
     const winners = [];
     const tempAvailable = [...available];
-    for (let i = 0; i < drawCount; i++) {
+    for (let i = 0; i < actualDrawCount; i++) {
       const randomIndex = Math.floor(Math.random() * tempAvailable.length);
       winners.push(tempAvailable[randomIndex]);
       tempAvailable.splice(randomIndex, 1);
@@ -144,7 +144,7 @@ function App() {
       setIsFlipping(false);
       setCurrentWinners([]);
     }, drumDuration + 5000);
-  }, [selectedPrize, hasRemainingSlots, isFlipping, getAvailableParticipants, getRemainingSlots, drawMode, playDrumRoll, playWinSound]);
+  }, [selectedPrize, hasRemainingSlots, isFlipping, getAvailableParticipants, getRemainingSlots, drawCount, playDrumRoll, playWinSound]);
 
   // 監聽空白鍵
   useKeyboardTrigger(
@@ -223,8 +223,8 @@ function App() {
             selectedPrize={selectedPrize}
             onSelect={setSelectedPrize}
             prizeWinners={prizeWinners}
-            drawMode={drawMode}
-            onDrawModeChange={setDrawMode}
+            drawCount={drawCount}
+            onDrawCountChange={setDrawCount}
           />
 
           <WinnerDisplay prizes={prizes} prizeWinners={prizeWinners} />

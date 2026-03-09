@@ -25,7 +25,7 @@ https://ariachen2020.github.io/luckydraw/
 npm install
 
 # 啟動開發伺服器
-npm run dev
+ 
 
 # 建置專案
 npm run build

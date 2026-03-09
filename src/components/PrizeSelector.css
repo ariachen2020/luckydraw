@@ -13,34 +13,83 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* 抽獎模式切換 */
-.draw-mode-toggle {
+/* 抽獎人數選擇 */
+.draw-count-selector {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 }
 
-.mode-btn {
-  padding: 0.4rem 1rem;
+.draw-count-label {
+  color: #ffd700;
+  font-size: 0.9rem;
+}
+
+.draw-count-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.count-btn {
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.count-btn:hover:not(:disabled) {
+  background: rgba(255, 215, 0, 0.3);
+  border-color: #ffd700;
+}
+
+.count-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.count-display {
+  min-width: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.all-btn {
+  padding: 0.3rem 0.8rem;
   border: 2px solid rgba(255, 215, 0, 0.5);
   background: rgba(0, 0, 0, 0.2);
   color: white;
-  border-radius: 20px;
+  border-radius: 16px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
 }
 
-.mode-btn:hover {
-  background: rgba(255, 215, 0, 0.2);
-}
-
-.mode-btn.active {
+.all-btn:hover:not(:disabled) {
   background: linear-gradient(145deg, #ffd700, #ffaa00);
   color: #8b0000;
-  font-weight: bold;
   border-color: #ffd700;
+}
+
+.all-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .prize-buttons {

@@ -1,6 +1,6 @@
 import './PrizeSelector.css';
 
-export function PrizeSelector({ prizes, selectedPrize, onSelect, prizeWinners, drawMode, onDrawModeChange }) {
+export function PrizeSelector({ prizes, selectedPrize, onSelect, prizeWinners, drawCount, onDrawCountChange }) {
   // 計算每個獎項已抽出的人數
   const getDrawnCount = (prizeId) => {
     return prizeWinners[prizeId]?.length || 0;
@@ -15,17 +15,34 @@ export function PrizeSelector({ prizes, selectedPrize, onSelect, prizeWinners, d
     <div className="prize-selector">
       <h2 className="prize-selector-title">選擇獎項</h2>
 
-      {/* 抽獎模式切換 */}
-      <div className="draw-mode-toggle">
+      {/* 抽獎人數選擇 */}
+      <div className="draw-count-selector">
+        <span className="draw-count-label">抽獎人數：</span>
+        <div className="draw-count-controls">
+          <button
+            className="count-btn"
+            onClick={() => onDrawCountChange(Math.max(1, drawCount - 1))}
+            disabled={drawCount <= 1}
+          >
+            −
+          </button>
+          <span className="count-display">{drawCount}</span>
+          <button
+            className="count-btn"
+            onClick={() => onDrawCountChange(drawCount + 1)}
+          >
+            +
+          </button>
+        </div>
         <button
-          className={`mode-btn ${drawMode === 'single' ? 'active' : ''}`}
-          onClick={() => onDrawModeChange('single')}
-        >
-          單抽
-        </button>
-        <button
-          className={`mode-btn ${drawMode === 'all' ? 'active' : ''}`}
-          onClick={() => onDrawModeChange('all')}
+          className="all-btn"
+          onClick={() => {
+            if (selectedPrize) {
+              const remaining = getRemainingCount(selectedPrize);
+              onDrawCountChange(remaining);
+            }
+          }}
+          disabled={!selectedPrize}
         >
           全抽
         </button>
